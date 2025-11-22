@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-torch==2.9.1
+torch==2.5.1
 sentence-transformers
 numpy
 scikit-learn
