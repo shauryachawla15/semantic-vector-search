@@ -1,6 +1,6 @@
 from src.embedder import clean_text
 import numpy as np
-from embedder import load_document
+from src.embedder import load_document
 from cache_manager import CacheManager
 
 
