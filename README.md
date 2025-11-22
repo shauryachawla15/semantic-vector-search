@@ -1,121 +1,67 @@
-Semantic Vector Search Engine
+### Semantic Vector Search Engine
 
-A modular semantic search system built using Python, FastAPI, and Sentence-Transformers.
-This project demonstrates:
+A fully modular semantic search system built using:
 
-Generating embeddings for text documents
+1) Python
+2) Sentence-Transformers (all-MiniLM-L6-v2)
+3) FastAPI
+4) Custom caching system
+5) Cosine-similarity ranking
 
-Caching embeddings to avoid recomputation
+### Project Structure
 
-Performing vector search using cosine similarity
+This project demonstrates how modern vector search engines work under the hood — embedding documents, caching results, and performing similarity-based retrieval through a clean API.
 
-Exposing a search API for retrieval
-
-Providing ranking explanations for results
-
-📁 Project Structure
 project/
 │
-├── data/               # ignored in Git
+├── data/               # ignored in Git (contains docs)
 │   └── docs/           # dataset text files
 │
 ├── src/
-│   ├── embedder.py
-│   ├── embedding_model.py
-│   ├── cache_manager.py
-│   ├── search_engine.py
-│   ├── api.py
-│   └── __init__.py
+│   ├── embedder.py         # text cleaning + hashing utilities
+│   ├── embedding_model.py  # loads embedding model + computes embeddings
+│   ├── cache_manager.py    # stores & retrieves embeddings using JSON cache
+│   ├── search_engine.py    # performs semantic search + ranking
+│   ├── api.py              # FastAPI service exposing /search endpoint
+│   
 │
 ├── README.md
 ├── requirements.txt
 └── .gitignore
 
-⚡ How Caching Works
+### How Caching Works
 
-We use a simple JSON file (embedding_cache.json) to store embeddings.
-
-Each entry looks like:
-
+Every document is cleaned, hashed, and checked against a JSON cache:
 {
   "doc_id": "doc_001",
-  "embedding": [...384-dimensional vector...],
-  "hash": "sha256_text_hash",
-  "updated_at": 1732138217.221
+  "embedding": [...],
+  "hash": "sha256_hash_of_text",
+  "updated_at": 1732164210.12
 }
 
-Caching Logic
+### When a document loads:
 
-Read document
+If hash matches → reuse stored embedding
+If hash changed → re-embed and update cache
 
-Clean text (lowercase, remove HTML, trim spaces)
+This makes the system fast and avoids recomputing 200+ embeddings
 
-Compute SHA-256 hash
+### Search Pipeline
 
-Compare hash with cached version
+When a user sends a query:
 
-If same → load cached embedding
+1) Query is embedded using all-MiniLM-L6-v2
+2) All document embeddings are loaded (from cache or computed)
+3) Cosine similarity is calculated between query + each doc
+4) Top-K ranked documents are returned
 
-If different → compute new embedding and update cache
-
-This makes search extremely fast since embeddings don't need to be recomputed.
-
-📥 Downloading the Dataset
-
-Use the provided script:
-
-python download_dataset.py
-
-
-This creates:
-
-data/docs/doc_0000.txt ... doc_0199.txt
-
-
-(These files are ignored in GitHub via .gitignore)
-
-🧠 Embedding Pipeline
-
-To test embedding generation:
-
-cd src
-python test_embedding.py
-
-
-You should see logs like:
-
-Loading embedding model: all-MiniLM-L6-v2
-Embedding shape: (384,)
-
-🚀 Starting the Search API
-
-Run the FastAPI server:
-
-cd src
-uvicorn api:app --reload --host 127.0.0.1 --port 8000
-
-
-API docs open at:
-
-👉 http://127.0.0.1:8000/docs
-
-🔍 Running a Search Query
-
-Example request:
-
-POST /search
-
-
-Body:
-
+Example API input:
 {
-  "query": "machine learning algorithms",
+  "query": "space shuttle engineering",
   "top_k": 5
 }
 
-
-Response:
-
+Example API output:
 {
   "results": [
     ["doc_0153", 0.42],
@@ -124,69 +70,26 @@ Response:
   ]
 }
 
-📊 Ranking Explanation
-
-Each search result includes (if enabled):
-
-doc_id – which document matched
-
-score – cosine similarity
-
-reason – simple keyword overlap check
-
-overlap_ratio – heuristic scoring
-
-length_norm – optional length-normalized score
-
-This helps understand why the model picked a document.
-
-🏗️ Design Choices
-Embedding Model
-
-sentence-transformers/all-MiniLM-L6-v2
-
-Small, fast, accurate for semantic vector search
-
-Cache
-
-Simple JSON-based storage
-
-Easy to inspect, portable, reliable
-
-Search Engine
-
-Pure NumPy cosine similarity
-
-Simple and transparent
-
-API
-
-FastAPI for clean automatic documentation
-
-Pydantic validation
-
-📦 Installation
-pip install -r requirements.txt
-
-▶️ Full Run Instructions
-python download_dataset.py
+### Run the API
 cd src
-python test_embedding.py
-uvicorn api:app --reload
+uvicorn api:app --reload --host 127.0.0.1 --port 8000
+
+Visit:
+
+📌 http://127.0.0.1:8000/docs
+to test the /search endpoint.
 
 
-Then visit:
+### Design Choices
 
-👉 http://127.0.0.1:8000/docs
+Sentence-Transformers chosen for fast CPU-friendly embeddings
+JSON cache for transparency & simplicity
+Custom cosine-similarity search (easy to understand & debug)
+Modular src/ layout enables upgrading to:
+    FAISS index
+    Streamlit UI
+    Batch embedding
+    Query expansion
 
-🎯 Optional Improvements (Bonus Ideas)
 
-Streamlit UI
 
-FAISS index
-
-Query expansion using WordNet
-
-Multiprocessing for batch embeddings
-
-Quality evaluation with test queries
