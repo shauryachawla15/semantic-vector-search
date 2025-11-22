@@ -1,7 +1,6 @@
-from src.embedder import clean_text
 import numpy as np
-from src.embedder import load_document
-from cache_manager import CacheManager
+from src.embedder import clean_text, load_document
+from src.cache_manager import CacheManager
 
 
 class EmbeddingModel:
