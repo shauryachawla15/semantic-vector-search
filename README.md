@@ -1,5 +1,6 @@
 ### Semantic Vector Search Engine
 
+This project implements a multi-document embedding search engine with caching, as required by the assignment.
 A fully modular semantic search system built using:
 
 1) Python
