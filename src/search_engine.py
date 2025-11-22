@@ -1,9 +1,10 @@
 import numpy as np
 import glob
 import os
-from embedding_model import EmbeddingModel
-from cache_manager import CacheManager
-from embedder import load_document
+from src.embedding_model import EmbeddingModel
+from src.embedder import clean_text
+from src.cache_manager import CacheManager
+
 
 
 def cosine_similarity(a, b):
