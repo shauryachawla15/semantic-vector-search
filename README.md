@@ -92,5 +92,13 @@ Modular src/ layout enables upgrading to:
     Batch embedding
     Query expansion
 
+## 📸 Screenshots / Demo Output
+
+<img width="1906" height="887" alt="Screenshot 2025-11-21 190651" src="https://github.com/user-attachments/assets/8037c5bd-d9b0-47a3-9c73-e21ef5f2b5d5" />
+<img width="1886" height="828" alt="Screenshot 2025-11-21 191204" src="https://github.com/user-attachments/assets/60cc5107-c1fc-4de3-8960-38d452324222" />
+<img width="1871" height="888" alt="Screenshot 2025-11-21 191222" src="https://github.com/user-attachments/assets/2992b123-3962-4afd-8e1c-3f65f6b0bf46" />
+<img width="1871" height="888" alt="Screenshot 2025-11-21 191222" src="https://github.com/user-attachments/assets/73a59c55-c76f-4abe-9ecd-50aca0613453" />
+
+
 
 
