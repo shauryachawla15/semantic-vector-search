@@ -2,8 +2,8 @@ import numpy as np
 import glob
 import os
 from src.embedding_model import EmbeddingModel
-from src.embedder import clean_text
 from src.cache_manager import CacheManager
+from src.embedder import load_document
 
 
 
