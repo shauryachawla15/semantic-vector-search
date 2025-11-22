@@ -9,9 +9,6 @@ A fully modular semantic search system built using:
 5) Cosine-similarity ranking
 
 ### Project Structure
-
-This project demonstrates how modern vector search engines work under the hood — embedding documents, caching results, and performing similarity-based retrieval through a clean API.
-
 project/
 │
 ├── data/               # ignored in Git (contains docs)
@@ -23,11 +20,11 @@ project/
 │   ├── cache_manager.py    # stores & retrieves embeddings using JSON cache
 │   ├── search_engine.py    # performs semantic search + ranking
 │   ├── api.py              # FastAPI service exposing /search endpoint
-│   
-│
 ├── README.md
 ├── requirements.txt
 └── .gitignore
+
+
 
 ### How Caching Works
 
