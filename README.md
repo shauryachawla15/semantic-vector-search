@@ -8,23 +8,23 @@ A fully modular semantic search system built using:
 4) Custom caching system
 5) Cosine-similarity ranking
 
-### Project Structure
+## 📁 Project Structure
 project/
 │
-├── data/               # ignored in Git (contains docs)
-│   └── docs/           # dataset text files
+├── data/ # ignored in Git (contains docs)
+│ └── docs/ # dataset text files
 │
 ├── src/
-│   ├── embedder.py         # text cleaning + hashing utilities
-│   ├── embedding_model.py  # loads embedding model + computes embeddings
-│   ├── cache_manager.py    # stores & retrieves embeddings using JSON cache
-│   ├── search_engine.py    # performs semantic search + ranking
-│   ├── api.py              # FastAPI service exposing /search endpoint
+│ ├── embedder.py # text cleaning + hashing utilities
+│ ├── embedding_model.py # loads embedding model + computes embeddings
+│ ├── cache_manager.py # stores & retrieves embeddings using JSON cache
+│ ├── search_engine.py # performs semantic search + ranking
+│ ├── api.py # FastAPI service exposing /search endpoint
+│ └── init.py
+│
 ├── README.md
 ├── requirements.txt
 └── .gitignore
-
-
 
 ### How Caching Works
 
