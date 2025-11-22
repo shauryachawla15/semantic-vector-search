@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from search_engine import SearchEngine
+from src.search_engine import SearchEngine
+
 
 # Create the FastAPI application
 app = FastAPI()
